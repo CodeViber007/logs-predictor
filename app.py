@@ -2,11 +2,12 @@ from flask import Flask, request, jsonify, render_template
 from backend import predictlogs
 import os
 
+
 app = Flask(__name__)
 
-@app.route("/", methods=["GET"])
+@app.route('/')
 def home():
-    return render_template("index.html")
+    return render_template('index.html')
 
 @app.route("/predict", methods=["POST"])
 def predict():
