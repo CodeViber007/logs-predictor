@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, jsonify, render_template
 from backend import predictlogs
 import os
 
@@ -10,14 +10,23 @@ def home():
 
 @app.route("/predict", methods=["POST"])
 def predict():
-    smiles = request.form.get("smiles")
+    # Check if request is JSON (from fetch)
+    if request.is_json:
+        data = request.get_json()
+        smiles = data.get("smiles")
+    else:
+        # fallback to form data (if needed)
+        smiles = request.form.get("smiles")
+
     if not smiles:
-        return render_template("index.html", error="No SMILES provided")
+        return jsonify({"error": "No SMILES provided"}), 400
+
     try:
         prediction = predictlogs(smiles)
-        return render_template("index.html", prediction=prediction, smiles=smiles)
+        # Ensure the prediction is JSON serializable (float or str)
+        return jsonify({"logS": float(prediction)})
     except Exception as e:
-        return render_template("index.html", error=str(e))
+        return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 10000))
