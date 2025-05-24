@@ -1,6 +1,7 @@
 flask
 rdkit-pypi
-xgboost
+numpy<2.0
 scikit-learn
-numpy
+xgboost
 joblib
+
