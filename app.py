@@ -1,7 +1,6 @@
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, render_template
 from backend import predictlogs
 import os
-
 
 app = Flask(__name__)
 
@@ -13,7 +12,7 @@ def home():
 def predict():
     smiles = request.form.get("smiles")
     if not smiles:
-        return jsonify({"error": "No SMILES provided"}), 400
+        return render_template("index.html", error="No SMILES provided")
     try:
         prediction = predictlogs(smiles)
         return render_template("index.html", prediction=prediction, smiles=smiles)
@@ -23,4 +22,3 @@ def predict():
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 10000))
     app.run(host='0.0.0.0', port=port)
-
