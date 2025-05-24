@@ -1,4 +1,4 @@
-#LogS Predictor
+# LogS Predictor
 
 Aqueous solubility is a defined as a compounds ability to dissociate in water in mol/dm^3. This physical property is obtained experimentally. When experimentation cannot be done literature and databases are used. However, there are limitations to this. Novel/Rare molecules may not exist on a database. 
 
