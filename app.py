@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return "<h1>LogS Predictor is Running</h1>"
+    return render_template('index.html')
 
 
 @app.route("/predict", methods=["POST"])
